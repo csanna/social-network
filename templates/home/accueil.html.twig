@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block monTitre %}Créer. Partager. Discuter.{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-3">Bienvenue sur le meilleur réseau social!</h1>
+        <p class="lead">Vous pouvez créer un nouveau compte ou simplement vous connecter.</p>
+        <hr class="my-4">
+        <p>Tout ce que vous avez à faire est de cliquer sur le lien ci-dessous: </p>
+        <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{{path('connexion')}}" role="button">Connexion</a>
+        <a class="btn btn-success btn-lg" href="{{path('inscription')}}" role="button">Inscription</a>
+        </p>
+    </div>
+{% endblock %}

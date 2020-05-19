@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block monTitre %}Créer. Partager. Discuter.{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-3">Bienvenue sur le meilleur réseau social!</h1>
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Félicitations!</strong> Vous êtes désormais connecté. </a>
+          </div>
+        <hr class="my-4">
+        <p>Vous pouvez rejoindre votre profil, accéder à votre fil d'actualité ou encore vos messages: </p>
+        <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Mon profil</a>
+        <a class="btn btn-success btn-lg" href="#" role="button">Mon fil d'actualité</a>
+        <a class="btn btn-danger btn-lg" href="#" role="button">Mes messages</a>
+        </p>
+    </div>
+{% endblock %}
