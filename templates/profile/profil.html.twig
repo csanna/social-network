@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<head>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+{% endblock %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block monTitre %}Votre profil{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 img">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"  alt="" class="img-rounded">
+        </div>
+        <div class="col-md-6 details">
+            <blockquote>
+                <h5>{{app.user.username}}</h5>
+                <small><cite title="Source Title">Lieu de résidence : {{app.user.lieuResidence}}  <i class="icon-map-marker"></i></cite></small>
+            </blockquote>
+            <p>
+                Date d'anniversaire : {{app.user.dateAnniversaire|date("d/m/Y")}} <br>
+                Age : {{app.user.age}} ans
+            </p>
+        </div>
+    </div>
+  </div>
+
+    <input type="submit" value="Modifier" class="btn btn-success">
+    <a href="{{path('bienvenue')}}" class="btn btn-primary">Retour</a>
+{% endblock %}

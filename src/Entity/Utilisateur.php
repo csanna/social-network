@@ -44,6 +44,21 @@ class Utilisateur implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lieuResidence;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateAnniversaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,5 +118,41 @@ class Utilisateur implements UserInterface
 
     public function getSalt(){
         
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getLieuResidence(): ?string
+    {
+        return $this->lieuResidence;
+    }
+
+    public function setLieuResidence(string $lieuResidence): self
+    {
+        $this->lieuResidence = $lieuResidence;
+
+        return $this;
+    }
+
+    public function getDateAnniversaire(): ?\DateTimeInterface
+    {
+        return $this->dateAnniversaire;
+    }
+
+    public function setDateAnniversaire(\DateTimeInterface $dateAnniversaire): self
+    {
+        $this->dateAnniversaire = $dateAnniversaire;
+
+        return $this;
     }
 }
