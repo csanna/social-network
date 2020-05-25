@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Mon profil{% endblock %}
 
-{% block monTitre %}Terminez votre inscription{% endblock %}
+{% block monTitre %}Modifier mon profil{% endblock %}
 
 {% block body %}
-{{ form_start(form) }}
+{{form_start(form)}}
     {{form_row(form.username,{
         "attr" : {
             "placeholder":"Saisissez votre nom d'utilisateur"
@@ -13,32 +13,19 @@
         "label" : "Nom d'utilisateur"
     })}}
 
-    {{form_row(form.password,{
-        "attr" : {
-            "placeholder":"Saisissez votre mot de passe"
-        },
-        "label" : "Mot de passe"
-    })}}
-
-    {{form_row(form.verifPassword,{
-        "attr" : {
-            "placeholder":"Saisissez à nouveau votre mot de passe"
-        },
-        "label" : "Mot de passe"
-    })}}
-
-    {{form_row(form.imageFile,{
-        "attr" : {
-            "placeholder":"Choisissez votre photo de profil"
-        },
-        "label" : "Photo de profil"
-    })}}
-
     {{form_row(form.age,{
         "attr" : {
-            "placeholder":"Saisissez votre âge"
+            "placeholder":"Saisissez votre age"
         },
         "label" : "Âge"
+    })}}
+
+    <img src="{{asset('images/profil/' ~ app.user.image)}}" style="width:25%">
+    {{form_row(form.imageFile,{
+        "attr" : {
+            "placeholder":"Choisissez une photo de profil"
+        },
+        "label" : "Photo de profil"
     })}}
 
     {{form_row(form.lieuResidence,{
@@ -54,8 +41,8 @@
         },
         "label" : "Date d'anniversaire"
     })}}
-
-    {{ form_widget(form) }}
-    <input type="submit" class="btn btn-primary" value="Valider">   
-{{ form_end(form) }}
+  
+        <a href="{{path('profil', {'username' : app.user.username})}}" class="btn btn-primary">Retour</a>
+        <input type="submit" value="Valider" class="btn btn-success"> 
+{{form_end(form)}}
 {% endblock %}

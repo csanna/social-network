@@ -14,10 +14,15 @@
 {% block monTitre %}Votre profil{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
 <div class="container">
     <div class="row">
         <div class="col-md-6 img">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvzOpl3-kqfNbPcA_u_qEZcSuvu5Je4Ce_FkTMMjxhB-J1wWin-Q"  alt="" class="img-rounded">
+            <img src="{{asset('images/profil/' ~ app.user.image)}}" style="width:60%">
         </div>
         <div class="col-md-6 details">
             <blockquote>
@@ -32,6 +37,6 @@
     </div>
   </div>
 
-    <input type="submit" value="Modifier" class="btn btn-success">
+    <a href="{{path('modifierProfil',{'username' : app.user.username})}}" class="btn btn-success">Modifier</a>
     <a href="{{path('bienvenue')}}" class="btn btn-primary">Retour</a>
 {% endblock %}

@@ -8,18 +8,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class InscriptionType extends AbstractType
+class ModificationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('username')
-            ->add('password', PasswordType::class)
-            ->add('verifPassword', PasswordType::class)
-            ->add('imageFile', FileType::class, ['required'=>false])
             ->add('age')
+            ->add('imageFile', FileType::class, ['required'=>false])
             ->add('lieuResidence')
             ->add('dateAnniversaire',DateType::class, array(
                 'widget' => 'single_text',
