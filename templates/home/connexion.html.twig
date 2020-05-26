@@ -8,7 +8,7 @@
 {% if error %}
     <div class="alert alert-danger">
         {{ error.messageKey | trans(error.messagedata, 'security') }} <br>
-        Le nom d'utilisateur et le mot de passe ne sont pas bons. <br>
+        Le nom d'utilisateur ou le mot de passe n'est pas pas bon. <br>
         Veuillez réessayer.
     </div>
 {% endif %}

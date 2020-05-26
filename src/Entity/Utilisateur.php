@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\File\File;
@@ -77,6 +79,24 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="username", orphanRemoval=true)
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+        /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue() {
+        $this->setUpdatedAt(new \DateTime());
+    }
 
     public function getImageFile(): ?File
     {
@@ -237,5 +257,36 @@ class Utilisateur implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setUsername($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            // set the owning side to null (unless already changed)
+            if ($article->getUsername() === $this) {
+                $article->setUsername(null);
+            }
+        }
+
+        return $this;
     }
 }

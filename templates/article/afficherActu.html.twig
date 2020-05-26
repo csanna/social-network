@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fil d'actualité{% endblock %}
+
+{% block monTitre %}Mon fil d'actualité{% endblock %}
+
+{% block stylesheet %}
+<head>
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbar-static/">
+    <link href="navbar-top.css" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block body %}
+{% if app.user %}
+<body class="bg-light">
+    {% for article in articles %}
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h2>{{article.titre}}</h2>
+            <p><b>{{article.contenu}}</b></p>
+            {% if article.image %}
+            <div class="col-md-6 img">
+                <img src="{{asset('images/actu/' ~ article.image)}}" style="width:60%">
+            </div>
+            {% endif %}
+            <br><p><b>Publié par {{article.username.getUsername()}} - le {{article.getCreatedAt()|date("d/m/Y")}} - à {{article.getCreatedAt()|date("H:i:s")}}</b></p>
+        </div>
+      </main>            
+    {% endfor %}
+</body>
+{% endif %}    
+{% endblock %}
