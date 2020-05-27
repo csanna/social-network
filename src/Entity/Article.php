@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
 class Article
 {
@@ -67,6 +68,22 @@ class Article
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+    }
+
+        /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+    */
+    public function updatedTimestamps(): void
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setCreatedAt(new \DateTime('now'));    
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+        if ($this->getUpdatedAt() === null) {
+            $this->setUpdatedAt(new \DateTime('now'));
+        }
     }
 
     public function getId(): ?int

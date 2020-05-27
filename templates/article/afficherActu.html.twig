@@ -13,22 +13,44 @@
 {% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+
 {% if app.user %}
-<body class="bg-light">
-    {% for article in articles %}
-    <main role="main" class="container">
-        <div class="jumbotron">
-            <h2>{{article.titre}}</h2>
-            <p><b>{{article.contenu}}</b></p>
-            {% if article.image %}
-            <div class="col-md-6 img">
-                <img src="{{asset('images/actu/' ~ article.image)}}" style="width:60%">
-            </div>
-            {% endif %}
-            <br><p><b>Publié par {{article.username.getUsername()}} - le {{article.getCreatedAt()|date("d/m/Y")}} - à {{article.getCreatedAt()|date("H:i:s")}}</b></p>
+    <body class="bg-light">
+        <div class="d-inline p-2">
+            <a href="{{path('creationArticle')}}" class="btn btn-success">Ajouter</a>
         </div>
-      </main>            
-    {% endfor %}
-</body>
+        {% for article in articles %}
+        <main role="main" class="container">
+            <div class="jumbotron">
+                {% if article.username.id == app.user.id %}
+                    <a href="{{path('modifArticle',{'id' : article.id})}}" style="display:inline" class="btn btn-warning">Modifier</a>
+                    <form method="POST" style="display:inline" action="{{path('supArticle', {'id' : article.id})}}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer ?')">
+                        <input type="hidden" name="_method" value="supprimer">
+                        <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ article.id)}}">
+                        <input type="submit" class="btn btn-danger" value="Supprimer">
+                {% endif %}
+
+                <h2>{{article.titre}}</h2>
+                <p><b>{{article.contenu}}</b></p>
+                {% if article.image %}
+                <div class="col-md-6 img">
+                    <img src="{{asset('images/actu/' ~ article.image)}}" style="width:60%">
+                </div>
+                {% endif %}
+                <br><p><b>Publié par <a href="{{path('profil', {'username' : article.username.getUsername()})}}">{{article.username.getUsername()}}</a> - le {{article.getUpdatedAt()|date("d/m/Y")}} - à {{article.getUpdatedAt()|date("H:i:s")}}</b></p>
+            </div>
+        </main>            
+        {% endfor %}
+        <main role="main" class="container">
+            <div class="navigation">
+                {{ knp_pagination_render(articles) }}
+            </div>
+        </main>
+    </body>
 {% endif %}    
 {% endblock %}

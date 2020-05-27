@@ -16,6 +16,10 @@ class ProfileController extends AbstractController
      */
     public function afficherProfil(Utilisateur $utilisateur)
     {
+        $objectManager = $this->getDoctrine()->getManager();
+
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find($utilisateur);
+        
         return $this->render('profile/profil.html.twig',[
             "utilisateur" => $utilisateur
         ]);

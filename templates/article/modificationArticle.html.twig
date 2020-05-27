@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de mon article{% endblock %}
+
+{% block monTitre %}
+    {% if isModification %}
+    Modification de mon article
+    {% else %}
+    Ajout d'un article
+    {% endif %}
+{% endblock %}
+
+{% block stylesheet %}
+<head>
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbar-static/">
+    <link href="navbar-top.css" rel="stylesheet">
+</head>
+{% endblock %}
+
+{% block body %}
+{{form_start(form)}}
+    {{form_row(form.titre,{
+        "attr" : {
+            "placeholder":"Saisissez un titre pour votre article"
+        },
+        "label" : "Titre"
+    })}}
+
+    {{form_row(form.contenu,{
+        "attr" : {
+            "placeholder":"Saisissez le contenu de votre article"
+        },
+        "label" : "Contenu"
+    })}}
+
+    <img src="{{asset('images/actu/' ~ article.image)}}" style="width:60%">
+    {{form_row(form.imageFile,{
+        "attr" : {
+            "placeholder":"Publiez votre article avec une image!"
+        },
+        "label" : "Image"
+    })}}
+  
+        <a href="{{path('article')}}" class="btn btn-primary">Retour</a>
+        <input type="submit" value="Valider" class="btn btn-success"> 
+{{form_end(form)}}
+{% endblock %}
