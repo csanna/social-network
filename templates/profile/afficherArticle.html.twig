@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fil d'actualité{% endblock %}
+{% block title %}Publications{% endblock %}
 
-{% block monTitre %}Mon fil d'actualité{% endblock %}
+{% block monTitre %}Publication de {{article.username.getUsername()}} {% endblock %}
 
 {% block stylesheet %}
 <head>
@@ -21,10 +21,6 @@
 
 {% if app.user %}
     <body class="bg-light">
-        <div class="d-inline p-2">
-            <a href="{{path('creationArticle')}}" class="btn btn-success">Ajouter une publication</a>
-        </div>
-        {% for article in articles %}
         <main role="main" class="container">
             <div class="jumbotron">
                 {% if article.username.id == app.user.id %}
@@ -43,10 +39,9 @@
                 </div>
                 {% endif %}
                 <br><p><b>Publié par <a href="{{path('profil', {'username' : article.username.getUsername()})}}">{{article.username.getUsername()}}</a> - le {{article.getUpdatedAt()|date("d/m/Y")}} - à {{article.getUpdatedAt()|date("H:i:s")}}</b></p>
-                <br><p style="display:inline"><b><a href="{{path('afficherunArticle', {'id' : article.id})}}">Voir les commentaires</a></b></p>
             </div>
-        </main>            
-        {% endfor %}
+        </main>  
+        <a href="{{path('article')}}" class="btn btn-primary">Retour au fil d'actualité</a>          
     </body>
 {% endif %}    
 {% endblock %}

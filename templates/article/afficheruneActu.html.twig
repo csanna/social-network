@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publications{% endblock %}
+
+{% block monTitre %}Publication de {{article.username.getUsername()}} {% endblock %}
+
+{% block stylesheet %}
+<head>
+    <link rel="stylesheet" href="{{ asset('css/userComment.css') }}">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endfor %}
+{% if app.user %}
+    <body class="bg-light">
+        <div class="d-inline p-2">
+            <a href="{{path('article')}}" class="btn btn-primary">Retour au fil d'actualité</a>
+        </div>
+        <main role="main" class="container">
+            <div class="jumbotron">
+                {% if article.username.id == app.user.id %}
+                    <a href="{{path('modifArticle',{'id' : article.id})}}" style="display:inline" class="btn btn-warning">Modifier ma publication</a>
+                    <form method="POST" style="display:inline" action="{{path('supArticle', {'id' : article.id})}}" onsubmit="return confirm('Êtes-vous sûr(e) de vouloir supprimer ?')">
+                    <input type="hidden" name="_method" value="supprimer">
+                    <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ article.id)}}">
+                    <input type="submit" class="btn btn-danger" value="Supprimer ma publication">
+                {% endif %}
+                <h2>{{article.titre}}</h2>
+                <p><b>{{article.contenu}}</b></p>
+                {% if article.image %}
+                <div class="col-md-6 img">
+                    <img src="{{asset('images/actu/' ~ article.image)}}" style="width:60%">
+                </div>
+                {% endif %}
+                <br><p><b>Publié par <a href="{{path('profil', {'username' : article.username.getUsername()})}}"> {{article.username.getUsername()}} </a> - le {{article.getUpdatedAt()|date("d/m/Y")}} - à {{article.getUpdatedAt()|date("H:i:s")}}</b></p><br>
+                <h4><b>Ajouter un commentaire</b></h4>
+                {{form_start(formComment)}}
+                    {{form_row(formComment.contenu,{
+                        "attr" : {
+                            "placeholder":"Saisissez le contenu de votre commentaire"
+                        },
+                        "label" : "Commentaire"
+                    })}}
+                    <input type="submit" value="Valider" class="btn btn-success"> 
+                {{form_end(formComment)}}
+            </div>
+        </main>
+        {% for commentaire in commentaires %}
+    <a href="{{path('ajoutComment',{'id' : commentaire.id})}}" class="btn btn-success">Ajouter un commentaire</a>
+        <div class="container">   
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong> {{commentaire.username.getUsername()}} </strong> <span class="text-muted">Publié le {{commentaire.getUpdatedAt()|date("d/m/Y")}} - à {{commentaire.getUpdatedAt()|date("H:i:s")}}</span>
+                    </div>
+                    <div class="panel-body">
+                    {{commentaire.contenu}}
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+        </div> <!--div container-->
+    {% else %}
+        <p><b>Il n'y a aucun commentaire pour le moment, soyez le premier!</b></p>
+    </div>
+    {% endfor %}
+</div>
+    </body>
+{% endif %}      
+{% endblock %}

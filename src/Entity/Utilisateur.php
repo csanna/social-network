@@ -85,10 +85,16 @@ class Utilisateur implements UserInterface, \Serializable
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="username")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->setUpdatedAt(new \DateTime());
+        $this->commentaires = new ArrayCollection();
     }
 
         /**

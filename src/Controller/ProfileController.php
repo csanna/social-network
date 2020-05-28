@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Utilisateur;
 use App\Form\InscriptionType;
 use App\Form\ModificationType;
@@ -46,5 +47,15 @@ class ProfileController extends AbstractController
             "form" => $form->createView(),
             "user" => $user
         ]);
-    }    
+    }
+    
+    /**
+     * @Route("/profil/articles/{username}", name="afficherTousArticles")
+     */
+    public function afficherArticle(Article $article = null)
+    {        
+        return $this->render('profile/afficherArticle.html.twig',[
+            "article" => $article
+        ]);
+    }
 }

@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Entity\Commentaire;
+use App\Entity\Utilisateur;
+use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class ArticleController extends AbstractController
@@ -24,9 +28,9 @@ class ArticleController extends AbstractController
             $request->query->getInt('page', 1), //page number
             4 //limit per page
         );
-        
+
         return $this->render('article/afficherActu.html.twig',[
-            "articles" => $articles,
+            "articles" => $articles
         ]);
     }
 
@@ -60,7 +64,7 @@ class ArticleController extends AbstractController
             "isModification" => $article->getId() !== null
         ]);
     }
-    
+
     /**
      * @Route("/actu/{id}", name="supArticle", methods="supprimer")
      */
@@ -68,11 +72,45 @@ class ArticleController extends AbstractController
         
         $objectManager = $this->getDoctrine()->getManager();
 
-        if($this->isCsrfTokenValid("SUP". $article->getId(),$request->get('_token'))){
+        if($this->isCsrfTokenValid("SUP".$article->getId(), $request->get("_token"))){
             $objectManager->remove($article);
             $objectManager->flush();
-            $this->addFlash("success","La suppression a été effectuée.");
+            $this->addFlash('success', "La suppression a été effectuée.");
             return $this->redirectToRoute("article");
+        } 
+    }
+
+    /**
+     * @Route("/actu/afficher/{id}", name="afficherunArticle")
+     */
+    public function afficherunArticle(Article $article = null, $id, Commentaire $commentaires, Request $request){
+        
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findOneBy(['id' => $article]);
+        
+        $commentaires = $this->getDoctrine()->getRepository(Commentaire::class)->findBy(['id' => $commentaires]);
+
+        $commentaire = new Commentaire();
+
+        $objectManager = $this->getDoctrine()->getManager();
+
+        $formComment = $this->createForm(CommentaireType::class, $commentaire);
+        $formComment->handleRequest($request);
+
+        if($formComment->isSubmitted() && $formComment->isValid()){
+            $commentaire->setArticle($articles);
+            $commentaire->setUpdatedAt(new \DateTime('now'));
+            //$commentaire->setUsername($this->getUser());
+
+            $objectManager->persist($commentaire);
+            $objectManager->flush();
+            $this->addFlash("success", "Le commentaire a été ajouté.");
+            return $this->redirectToRoute("afficherunArticle");
         }
+        
+        return $this->render('article/afficheruneActu.html.twig',[
+            'article' => $article,
+            'commentaires' => $commentaires,
+            'formComment' => $formComment->createView()
+        ]);
     }
 }
