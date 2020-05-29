@@ -90,11 +90,17 @@ class Utilisateur implements UserInterface, \Serializable
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="username", orphanRemoval=true)
+     */
+    private $commentaire;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->setUpdatedAt(new \DateTime());
         $this->commentaires = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
         /**
@@ -290,6 +296,37 @@ class Utilisateur implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($article->getUsername() === $this) {
                 $article->setUsername(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaire(): Collection
+    {
+        return $this->commentaire;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire[] = $commentaire;
+            $commentaire->setUsername($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaire->contains($commentaire)) {
+            $this->commentaire->removeElement($commentaire);
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUsername() === $this) {
+                $commentaire->setUsername(null);
             }
         }
 

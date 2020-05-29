@@ -19,6 +19,7 @@
 {% endblock %}
 
 {% block body %}
+<div container style="padding: 0% 70% 0% 2%">
 {{form_start(form)}}
     {{form_row(form.titre,{
         "attr" : {
@@ -34,7 +35,9 @@
         "label" : "Contenu"
     })}}
 
+    {% if article.image %}
     <img src="{{asset('images/actu/' ~ article.image)}}" style="width:60%">
+    {% endif %}
     {{form_row(form.imageFile,{
         "attr" : {
             "placeholder":"Publiez votre article avec une image!"
@@ -45,4 +48,5 @@
         <a href="{{path('article')}}" class="btn btn-primary">Retour</a>
         <input type="submit" value="Valider" class="btn btn-success"> 
 {{form_end(form)}}
+</div>
 {% endblock %}

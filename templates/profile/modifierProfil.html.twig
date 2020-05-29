@@ -5,6 +5,7 @@
 {% block monTitre %}Modifier mon profil{% endblock %}
 
 {% block body %}
+<div container style="padding: 0% 70% 0% 2%">
 {{form_start(form)}}
     {{form_row(form.username,{
         "attr" : {
@@ -20,7 +21,9 @@
         "label" : "Âge"
     })}}
 
+    {% if app.user.imageFile %}
     <img src="{{asset('images/profil/' ~ user.image)}}" style="width:25%">
+    {% endif %}
     {{form_row(form.imageFile,{
         "attr" : {
             "placeholder":"Choisissez une photo de profil"
@@ -45,4 +48,5 @@
         <a href="{{path('profil', {'username' : app.user.username})}}" class="btn btn-primary">Retour</a>
         <input type="submit" value="Valider" class="btn btn-success"> 
 {{form_end(form)}}
+</div>
 {% endblock %}

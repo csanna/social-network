@@ -33,6 +33,7 @@
                         <input type="hidden" name="_method" value="supprimer">
                         <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ article.id)}}">
                         <input type="submit" class="btn btn-danger" value="Supprimer ma publication">
+                    </form>    
                 {% endif %}
 
                 <h2>{{article.titre}}</h2>
@@ -47,6 +48,11 @@
             </div>
         </main>            
         {% endfor %}
+        <main role="main" class="container">
+            <div class="navigation">
+                {{ knp_pagination_render(articles) }}
+            </div>
+        </main>
     </body>
 {% endif %}    
 {% endblock %}

@@ -25,7 +25,7 @@ class Commentaire
     /**
      * @ORM\Column(type="boolean")
      */
-    private $actif = false;
+    private $actif = true;
 
     /**
      * @ORM\Column(type="datetime")
@@ -44,7 +44,8 @@ class Commentaire
     private $updated_at;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="commentaire")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $username;
 
@@ -113,12 +114,12 @@ class Commentaire
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): ?Utilisateur
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?Utilisateur $username): self
     {
         $this->username = $username;
 

@@ -22,7 +22,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 img">
+            {% if app.user.imageFile %}
             <img src="{{asset('images/profil/' ~ utilisateur.image)}}" style="width:60%">
+            {% endif %}
         </div>
         <div class="col-md-6 details">
             <blockquote>

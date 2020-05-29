@@ -5,6 +5,7 @@
 {% block monTitre %}Terminez votre inscription{% endblock %}
 
 {% block body %}
+<div container style="padding: 0% 70% 0% 2%">
 {{ form_start(form) }}
     {{form_row(form.username,{
         "attr" : {
@@ -24,7 +25,7 @@
         "attr" : {
             "placeholder":"Saisissez à nouveau votre mot de passe"
         },
-        "label" : "Mot de passe"
+        "label" : "Retapez votre mot de passe"
     })}}
 
     {{form_row(form.imageFile,{
@@ -58,4 +59,5 @@
     {{ form_widget(form) }}
     <input type="submit" class="btn btn-primary" value="Valider">   
 {{ form_end(form) }}
+</div>
 {% endblock %}
