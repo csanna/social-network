@@ -45,3 +45,5 @@
 **Jour 27-28-29-30 (30-31 mai 2020 et 1er-2 juin 2020):** J'ai un peu laissé le code du site web de côté et c'est ce que je compte faire pour la semaine à venir. En effet, je compte me concentrer entièrement sur la réalisation du rapport du site web ainsi que le manuel d'utilisateur. Aujourd'hui j'ai donc réalisé la première partie  du rapport relatif au projet de réseau social. J'ai également commencé quelques recherches sur le view js.
 
 **Jour 31 (Mercredi 3 juin 2020):** Aujourd'hui je n'ai pas non plus touché au code source de l'application de réseau social. J'ai en revanche, terminé entièrement d'écrire le rapport à rendre pour le Mercredi 10 juin 2020. Je relirai la totalité du rapport avant de passer au diaporama à réaliser pour l'oral. Je rédigerai également un manuel utilisateur pour le site web.
+
+**Jour 32 (Jeudi 4 juin 2020):** Aujourd'hui j'ai réalisé la totalité du diaporama qui est à réaliser pour la présentation du projet le 15 juin prochain ainsi que l'intégralité de mon texte.
