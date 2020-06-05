@@ -47,3 +47,5 @@
 **Jour 31 (Mercredi 3 juin 2020):** Aujourd'hui je n'ai pas non plus touché au code source de l'application de réseau social. J'ai en revanche, terminé entièrement d'écrire le rapport à rendre pour le Mercredi 10 juin 2020. Je relirai la totalité du rapport avant de passer au diaporama à réaliser pour l'oral. Je rédigerai également un manuel utilisateur pour le site web.
 
 **Jour 32 (Jeudi 4 juin 2020):** Aujourd'hui j'ai réalisé la totalité du diaporama qui est à réaliser pour la présentation du projet le 15 juin prochain ainsi que l'intégralité de mon texte.
+
+**Jour 33 (Vendredi 5 juin 2020):** Je me suis entraîné à l'oral avec mon diaporama. J'ai également modifié 2-3 slides dans mon diaporama et mon rapport.
